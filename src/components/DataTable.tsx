@@ -175,7 +175,6 @@ const DataTable: React.FC = () => {
       const { id, ...rest } = row;
       return rest;
     });
-
     dispatch(setRows(updatedRows));
     setIsEditing(false);
     alert('All changes saved successfully!');
