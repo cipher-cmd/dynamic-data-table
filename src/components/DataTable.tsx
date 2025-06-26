@@ -149,7 +149,7 @@ const DataTable: React.FC = () => {
     const rowIndex = oldRow.id as number;
     if (updatedRows[rowIndex]) {
       // Remove id from the row before updating
-      const { id, ...rowData } = newRow;
+      const { id: _unused, ...rowData } = newRow;
       updatedRows[rowIndex] = rowData;
       dispatch(setRows(updatedRows));
     }
@@ -174,7 +174,7 @@ const DataTable: React.FC = () => {
   // Save all changes
   const handleSaveAll = () => {
     const updatedRows = gridRows.map((row) => {
-      const { id, ...rest } = row;
+      const { id: _unused, ...rest } = row;
       return rest;
     });
     dispatch(setRows(updatedRows));

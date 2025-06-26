@@ -79,7 +79,9 @@ const ManageColumnsModal: React.FC<{ open: boolean; onClose: () => void }> = ({
     // Prevent deletion of core columns
     const coreColumns = ['name', 'email', 'age', 'role'];
     if (coreColumns.includes(field)) {
-      alert('Cannot delete core columns (Name, Email, Age, Role)');
+      <Typography>
+        Cannot delete core columns (&quot;Name, Email, Age, Role&quot;)
+      </Typography>;
       return;
     }
 
