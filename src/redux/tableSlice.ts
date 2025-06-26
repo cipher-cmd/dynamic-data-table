@@ -79,9 +79,8 @@ export const tableSlice = createSlice({
       );
       // Remove field from all rows
       state.rows = state.rows.map((row) => {
-        const { [fieldToDelete]: _, ...rest } = row;
-        void deleted;
-
+        const { [fieldToDelete]: _unused, ...rest } = row;
+        void _unused; // Mark as intentionally unused
         return rest;
       });
     },

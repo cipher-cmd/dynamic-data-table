@@ -1,4 +1,5 @@
 'use client';
+import { TableRow } from '../types';
 import React, { useState } from 'react';
 import Papa from 'papaparse';
 import { useDispatch, useSelector } from 'react-redux';
@@ -49,6 +50,7 @@ const ImportExportControls: React.FC = () => {
           const csvColumns = Object.keys(
             results.data[0] as Record<string, unknown>
           );
+
           const missingColumns = requiredColumns.filter(
             (col) => !csvColumns.includes(col)
           );
