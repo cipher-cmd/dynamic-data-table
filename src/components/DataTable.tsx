@@ -33,12 +33,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import {
-  import {
   DragDropContext,
   Droppable,
   Draggable,
   DropResult,
-} from 'react-beautiful-dnd';
+} from '@hello-pangea/dnd';
 
 const DataTable: React.FC = () => {
   const dispatch = useDispatch();
