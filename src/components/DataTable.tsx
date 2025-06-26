@@ -146,6 +146,7 @@ const DataTable: React.FC = () => {
     const updatedRows = [...rows];
     const rowIndex = oldRow.id as number;
     if (updatedRows[rowIndex]) {
+      // Remove id from the row before updating
       const { id, ...rowData } = newRow;
       updatedRows[rowIndex] = rowData;
       dispatch(setRows(updatedRows));
