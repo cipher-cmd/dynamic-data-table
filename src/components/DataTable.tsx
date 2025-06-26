@@ -170,7 +170,11 @@ const DataTable: React.FC = () => {
 
   // Save all changes
   const handleSaveAll = () => {
-    const updatedRows = gridRows.map(({ id: _id, ...rest }) => rest);
+    const updatedRows = gridRows.map((row) => {
+      const { id, ...rest } = row;
+      return rest;
+    });
+
     dispatch(setRows(updatedRows));
     setIsEditing(false);
     alert('All changes saved successfully!');
