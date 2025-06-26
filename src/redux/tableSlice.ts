@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars, react/no-unescaped-entities */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TableRow, TableColumn } from '../types';
 
