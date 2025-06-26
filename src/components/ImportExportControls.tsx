@@ -46,7 +46,9 @@ const ImportExportControls: React.FC = () => {
 
           // Validate that required columns exist
           const requiredColumns = ['name', 'email', 'age', 'role'];
-          const csvColumns = Object.keys(results.data[0] as any);
+          const csvColumns = Object.keys(
+            results.data[0] as Record<string, unknown>
+          );
           const missingColumns = requiredColumns.filter(
             (col) => !csvColumns.includes(col)
           );
@@ -57,7 +59,7 @@ const ImportExportControls: React.FC = () => {
             );
           }
 
-          dispatch(setRows(results.data as any[]));
+          dispatch(setRows(results.data as TableRow[]));
           setSuccess(`Successfully imported ${results.data.length} rows`);
 
           // Clear the file input
@@ -97,7 +99,7 @@ const ImportExportControls: React.FC = () => {
         visibleColumnsInfo.reduce((acc, col) => {
           acc[col.label] = row[col.field] || '';
           return acc;
-        }, {} as any)
+        }, {} as Record<string, unknown>)
       );
 
       const csv = Papa.unparse(exportData);
