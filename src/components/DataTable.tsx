@@ -293,7 +293,7 @@ const DataTable: React.FC = () => {
         paginationMode="client" // Set pagination mode to client-side
         pageSize={rowsPerPage}
         page={page}
-        pageSizeOptions={[5, 10, 25, 50]} // Available page sizes for the user
+        rowsPerPageOptions={[5, 10, 25, 50]} // Available page sizes for the user
         onPageChange={(newPage) => dispatch(setPage(newPage))}
         sortingOrder={['asc', 'desc']}
         sortModel={[{ field: sort.field, sort: sort.direction }]}
