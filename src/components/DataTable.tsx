@@ -61,8 +61,11 @@ const DataTable: React.FC = () => {
 
   // Filter rows based on global search
   const filteredRows = rows.filter((row) =>
-    Object.values(row).some((value) =>
-      value.toString().toLowerCase().includes(search.toLowerCase())
+    Object.values(row).some(
+      (value) =>
+        value !== undefined &&
+        value !== null &&
+        value.toString().toLowerCase().includes(search.toLowerCase())
     )
   );
 
