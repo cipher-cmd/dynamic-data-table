@@ -286,21 +286,15 @@ const DataTable: React.FC = () => {
       <DataGrid
         rows={gridRows}
         columns={gridColumns}
+        pagination
+        paginationMode="client" // Set pagination mode to client-side
         pageSize={rowsPerPage}
         page={page}
+        pageSizeOptions={[5, 10, 25, 50]} // Available page sizes for the user
         onPageChange={(newPage) => dispatch(setPage(newPage))}
         sortingOrder={['asc', 'desc']}
         sortModel={[{ field: sort.field, sort: sort.direction }]}
-        onSortModelChange={(model) => {
-          if (model.length) {
-            dispatch(
-              setSort({
-                field: model[0].field,
-                direction: model[0].sort as 'asc' | 'desc',
-              })
-            );
-          }
-        }}
+        // Additional props for row editing, selection, etc.
         checkboxSelection
         disableSelectionOnClick
         autoHeight

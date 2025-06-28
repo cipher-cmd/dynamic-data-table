@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, react/no-unescaped-entities */
 'use client';
-import { TableRow } from '../types';
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import Papa from 'papaparse';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRows } from '../redux/tableSlice';
 import { RootState } from '../redux/store';
+import { TableRow } from '../types'; // Ensure TableRow type is correctly imported
 import { Button, Alert, CircularProgress, Box } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -21,6 +22,7 @@ const ImportExportControls: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
+  // Handle CSV import
   const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -82,6 +84,7 @@ const ImportExportControls: React.FC = () => {
     });
   };
 
+  // Handle CSV export
   const handleExport = async () => {
     try {
       setExporting(true);
@@ -130,7 +133,7 @@ const ImportExportControls: React.FC = () => {
   };
 
   // Auto-clear messages after 5 seconds
-  React.useEffect(() => {
+  useEffect(() => {
     if (error || success) {
       const timer = setTimeout(() => {
         setError(null);

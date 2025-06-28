@@ -2,11 +2,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TableRow, TableColumn } from '../types';
 
+// Defining the initial state structure and types
 interface TableState {
   rows: TableRow[];
   columns: TableColumn[];
   visibleColumns: string[];
-  columnOrder: string[]; // NEW: Track column order
+  columnOrder: string[]; // Track column order
   search: string;
   sort: { field: string; direction: 'asc' | 'desc' };
   page: number;
@@ -14,6 +15,7 @@ interface TableState {
   theme: 'light' | 'dark';
 }
 
+// Default columns and rows for demonstration
 const initialColumns: TableColumn[] = [
   { field: 'name', label: 'Name', type: 'string', editable: true },
   { field: 'email', label: 'Email', type: 'string', editable: true },
@@ -21,7 +23,7 @@ const initialColumns: TableColumn[] = [
   { field: 'role', label: 'Role', type: 'string', editable: true },
 ];
 
-// Sample data for demonstration
+// Sample rows for the table
 const sampleRows: TableRow[] = [
   { name: 'John Doe', email: 'john@example.com', age: 28, role: 'Developer' },
   { name: 'Jane Smith', email: 'jane@example.com', age: 32, role: 'Designer' },
@@ -40,11 +42,12 @@ const sampleRows: TableRow[] = [
   },
 ];
 
+// Initial state for the table
 const initialState: TableState = {
   rows: sampleRows,
   columns: initialColumns,
   visibleColumns: initialColumns.map((c) => c.field),
-  columnOrder: initialColumns.map((c) => c.field), // NEW: Initialize column order
+  columnOrder: initialColumns.map((c) => c.field),
   search: '',
   sort: { field: 'name', direction: 'asc' },
   page: 0,
@@ -52,6 +55,7 @@ const initialState: TableState = {
   theme: 'light',
 };
 
+// Create the slice
 export const tableSlice = createSlice({
   name: 'table',
   initialState,
@@ -62,42 +66,44 @@ export const tableSlice = createSlice({
     addColumn(state, action: PayloadAction<TableColumn>) {
       state.columns.push(action.payload);
       state.visibleColumns.push(action.payload.field);
-      state.columnOrder.push(action.payload.field); // NEW: Add to column order
+      state.columnOrder.push(action.payload.field); // Add new column to order
     },
     deleteColumn(state, action: PayloadAction<string>) {
       const fieldToDelete = action.payload;
+
       // Remove from columns array
       state.columns = state.columns.filter(
         (col) => col.field !== fieldToDelete
       );
+
       // Remove from visible columns
       state.visibleColumns = state.visibleColumns.filter(
         (field) => field !== fieldToDelete
       );
+
       // Remove from column order
       state.columnOrder = state.columnOrder.filter(
         (field) => field !== fieldToDelete
       );
-      // Remove field from all rows
+
+      // Remove the field from all rows
       state.rows = state.rows.map((row) => {
         const { [fieldToDelete]: _unused, ...rest } = row;
-        void _unused; // Mark as intentionally unused
         return rest;
       });
     },
     setVisibleColumns(state, action: PayloadAction<string[]>) {
       state.visibleColumns = action.payload;
     },
-    // NEW: Reorder columns
     reorderColumns(
       state,
       action: PayloadAction<{ sourceIndex: number; destinationIndex: number }>
     ) {
       const { sourceIndex, destinationIndex } = action.payload;
-      const newColumnOrder = Array.from(state.columnOrder);
-      const [reorderedItem] = newColumnOrder.splice(sourceIndex, 1);
-      newColumnOrder.splice(destinationIndex, 0, reorderedItem);
-      state.columnOrder = newColumnOrder;
+      const newColumnOrder = Array.from(state.columnOrder); // Create a copy of the order
+      const [reorderedItem] = newColumnOrder.splice(sourceIndex, 1); // Remove the column from the source index
+      newColumnOrder.splice(destinationIndex, 0, reorderedItem); // Insert it at the destination index
+      state.columnOrder = newColumnOrder; // Update the column order
     },
     setSearch(state, action: PayloadAction<string>) {
       state.search = action.payload;
@@ -130,12 +136,13 @@ export const tableSlice = createSlice({
   },
 });
 
+// Exporting actions for use in components
 export const {
   setRows,
   addColumn,
   deleteColumn,
   setVisibleColumns,
-  reorderColumns, // NEW: Export reorder action
+  reorderColumns, // Action to reorder columns
   setSearch,
   setSort,
   setPage,
@@ -145,4 +152,5 @@ export const {
   deleteRow,
 } = tableSlice.actions;
 
+// Export the reducer to be used in store
 export const tableReducer = tableSlice.reducer;

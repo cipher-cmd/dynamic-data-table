@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "ES2020", // Updated target to ES2020 for better feature support
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -8,20 +8,25 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "bundler", // "bundler" is fine for Next.js, but ensure TypeScript >= 4.7
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "preserve", // Keep JSX syntax preserved for Next.js
     "incremental": true,
     "plugins": [
       {
-        "name": "next"
+        "name": "next" // Ensure Next.js plugin is enabled for better type checking
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"] // Path aliases for cleaner imports
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts", // Automatically included by Next.js
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts" // Include Next.js type definitions
+  ],
+  "exclude": ["node_modules"] // Exclude node_modules from compilation
 }

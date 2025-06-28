@@ -10,16 +10,23 @@ const ThemeToggle: React.FC = () => {
   const theme = useSelector((state: RootState) => state.table.theme);
   const [mounted, setMounted] = useState(false);
 
+  // Set mounted to true once the component is mounted to prevent hydration mismatch
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null; // Prevents hydration mismatch
+  // Return null until mounted to prevent SSR issues
+  if (!mounted) return null;
+
+  // Handle the theme toggle (light <-> dark)
+  const handleToggle = () => {
+    dispatch(setTheme(theme === 'light' ? 'dark' : 'light'));
+  };
 
   return (
     <Switch
       checked={theme === 'dark'}
-      onChange={() => dispatch(setTheme(theme === 'light' ? 'dark' : 'light'))}
+      onChange={handleToggle}
       inputProps={{ 'aria-label': 'theme toggle' }}
     />
   );

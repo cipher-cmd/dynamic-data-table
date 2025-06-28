@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, react/no-unescaped-entities */
 'use client';
+
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store';
@@ -80,7 +81,6 @@ const ManageColumnsModal: React.FC<{ open: boolean; onClose: () => void }> = ({
     const coreColumns = ['name', 'email', 'age', 'role'];
     if (coreColumns.includes(field)) {
       alert('Cannot delete core columns (Name, Email, Age, Role)');
-
       return;
     }
 
@@ -176,7 +176,7 @@ const ManageColumnsModal: React.FC<{ open: boolean; onClose: () => void }> = ({
                 pattern: {
                   value: /^[a-zA-Z][a-zA-Z0-9_]*$/,
                   message:
-                    'Field must start with letter, only letters, numbers, and underscores allowed',
+                    'Field must start with a letter, only letters, numbers, and underscores allowed',
                 },
               }}
               render={({ field }) => (
